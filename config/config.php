@@ -1,5 +1,6 @@
 <?php
 $db = require(__DIR__ . '/db.php');
+$webControllerMap = require(__DIR__ . '/webControllerMap.php');
 
 $config = [
     // the id of the application
@@ -9,26 +10,22 @@ $config = [
     'basePath' => __DIR__.'/../',
 
     // this is where the application will find all controllers
-    'controllerNamespace' => 'micro\controllers',
+    'controllerNamespace' => 'app\controllers',
 
+    // Set the app's timezone
+    'timeZone' => $_ENV['TIMEZONE'],
+    
     // set an alias to enable autoloading of classes from the 'micro' namespace
     'aliases' => [
-        '@micro' => __DIR__.'/../',
-        
+        '@app' => __DIR__.'/../',
         '@bower' => '@vendor/bower-asset', // <- needed due to Yii2's use of bower instead of npm
     ],
-
+    
     'components' => [
         /** REQUEST COMPONENT */
         'request' => [
             'cookieValidationKey' => $_ENV['COOKIE_VALIDATION_KEY'],
         ],
-
-        /** ASSET MANAGER */
-
-        /** DATABASES */
-        'db' => $db['db'],
-        // ... other dbs here
 
         /** CACHE */
         'cache' => [
@@ -59,8 +56,23 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
         ],
+
+
+        // EXAMPLE LOGGING CONFIGURATION FOR PREFIXING USER DATA
+        // 'prefix' => function ($message) {
+        //     $user = Yii::$app->has('user', true) ? Yii::$app->get('user') : null;
+        //     $userID = $user ? $user->getId(false) : '-';
+        //     return "[$userID]";
+        // }
     ],
 ];
+
+// databases are merged in from config/db.php
+$config['components'] = array_merge($config['components'], $db);
+
+// add in the web controller map. 
+$config['controllerMap'] = $webControllerMap;
+
 // other bootstrap code here
 if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment

@@ -1,5 +1,5 @@
 <?php
-namespace micro\controllers;
+namespace app\controllers;
 
 use yii\web\Controller;
 
@@ -7,7 +7,6 @@ class SiteController extends Controller
 {
     public function actionIndex()
     {
-
-        return 'Hello World2!';
+        return 'Hello World!';
     }
 }
