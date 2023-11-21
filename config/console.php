@@ -31,7 +31,7 @@ $config = [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning', 'info', 'trace'],
                     'logVars' => [], // Don't log any variables by default. 
-                    'traceLevel' => YII_DEBUG ? 3 : 0, // Log more info in debug mode
+                    // 'traceLevel' => YII_DEBUG ? 3 : 0, // Log more info in debug mode
                     // 'logVars' => ['_GET', '_POST', '_FILES', '_SESSION'],
                 ],
 
